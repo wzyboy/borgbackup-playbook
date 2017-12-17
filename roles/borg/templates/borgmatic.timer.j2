@@ -1,0 +1,9 @@
+[Unit]
+Description=Run borgmatic backup
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=2h
+
+[Install]
+WantedBy=timers.target

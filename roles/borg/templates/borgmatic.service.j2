@@ -1,0 +1,6 @@
+[Unit]
+Description=borgmatic backup
+
+[Service]
+Type=oneshot
+ExecStart={{ borgmatic_path }} -v 1

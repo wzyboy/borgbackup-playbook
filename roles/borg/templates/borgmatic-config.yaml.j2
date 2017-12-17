@@ -1,0 +1,41 @@
+# vim: ft=yaml:
+
+location:
+    source_directories:
+{% for dir in borg_backup_dirs %}
+        - {{ dir }}
+{% endfor %}
+
+    one_file_system: true
+
+    remote_path: borg1
+
+    repositories:
+        - {{ borg_host_user}}@{{ borg_host_addr }}:{{ ansible_nodename }}.borg
+
+    exclude_patterns:
+        - /home/*/.cache
+        - /home/*/.local/share/Trash
+    exclude_from:
+        - /etc/borgmatic/excludes
+    exclude_caches: true
+    exclude_if_present: .nobackup
+
+storage:
+    encryption_passphrase: "{{ borg_passphrase }}"
+    compression: auto,lz4
+    umask: 0077
+    archive_name_format: '{hostname}-{now}'
+
+retention:
+    keep_within: 3H
+    keep_hourly: 24
+    keep_daily: 7
+    keep_weekly: 4
+    keep_monthly: 6
+    keep_yearly: 1
+    prefix: '{hostname}-'
+
+consistency:
+    checks:
+        - disabled

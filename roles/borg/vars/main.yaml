@@ -1,0 +1,22 @@
+borg_version: "1.1.3"
+borg_url: "https://github.com/borgbackup/borg/releases/download/{{ borg_version }}/borg-linux64"
+borg_checksum: "sha256:34ad4d2f01f646c48abc7f8155a604b260cf71483432baa3db197b33af83d75d"
+borg_path: /usr/local/bin/borg
+
+borgmatic_version: "1.1.11"
+borgmatic_dir: /opt/borgmatic
+borgmatic_path: /opt/borgmatic/bin/borgmatic
+
+borg_passphrase: "YourRandomGeneratedPassphraseHere"
+borg_backup_dirs:
+  - /home
+  - /root
+  - /etc
+  - /var/www
+  - /var/log
+  - /var/mail
+
+# rsync.net
+borg_host_user: 0000
+borg_host_addr: usw-s001.rsync.net
+borg_host_key: "usw-s001.rsync.net ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBHuAB/wxQZQSGjZCA8ri/e14eGvNXLvx4mD15DP9bWZ"
