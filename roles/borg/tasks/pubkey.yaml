@@ -1,9 +1,3 @@
-# The following tasks do essentially the same thing as the "authorized_key"
-# Ansible module for jailed SSH accounts of rsync.net
-#
-# A list of available commands is available at:
-# http://www.rsync.net/resources/howto/remote_commands.html
-
 - name: Generate local key if not exists
   user:
     name: root
@@ -24,37 +18,45 @@
   debug:
     var: local_key
 
-#- name: Get all installed keys
-#  raw: .ssh/authorized_keys
-#  args:
-#    executable: /bin/tail
-#  register: installed_keys
-#  become: no
-#  delegate_to: rsync.net
+- block:
+    - name: Install local key
+      authorized_key:
+      user: "{{ borg_host_user }}"
+      key: "{{ local_key.stdout }}"
+      delegate_to: "{{ borg_host_addr }}"
+  when: "'rsync.net' not in borg_host_addr"
 
-- name: Get remote installed keys
-  command: ssh {{ borg_host_user}}@{{ borg_host_addr }} tail -n100 .ssh/authorized_keys
-  register: installed_keys
-  delegate_to: localhost
-  become: no
-  changed_when: False
+# The following tasks do essentially the same thing as the "authorized_key"
+# Ansible module for jailed SSH accounts of rsync.net
+#
+# A list of available commands is available at:
+# http://www.rsync.net/resources/howto/remote_commands.html
 
-- name: Print all installed keys
-  debug:
-    var: installed_keys
+- block:
+    - name: Get remote installed keys
+      command: ssh {{ borg_host_user}}@{{ borg_host_addr }} tail -n100 .ssh/authorized_keys
+      register: installed_keys
+      delegate_to: localhost
+      become: no
+      changed_when: False
 
-- name: Key is installed
-  set_fact:
-    local_key_installed: True
-  when: local_key.stdout in installed_keys.stdout_lines
+    - name: Print all installed keys
+      debug:
+        var: installed_keys
 
-- name: Key is not installed
-  set_fact:
-    local_key_installed: False
-  when: local_key.stdout not in installed_keys.stdout_lines
+    - name: Key is installed
+      set_fact:
+        local_key_installed: True
+      when: local_key.stdout in installed_keys.stdout_lines
 
-- name: Install local key
-  shell: echo {{ local_key.stdout }} | ssh {{ borg_host_user}}@{{ borg_host_addr }} 'dd of=.ssh/authorized_keys oflag=append conv=notrunc'
-  delegate_to: localhost
-  become: no
-  when: not local_key_installed
+    - name: Key is not installed
+      set_fact:
+        local_key_installed: False
+      when: local_key.stdout not in installed_keys.stdout_lines
+
+    - name: Install local key
+      shell: echo {{ local_key.stdout }} | ssh {{ borg_host_user}}@{{ borg_host_addr }} 'dd of=.ssh/authorized_keys oflag=append conv=notrunc'
+      delegate_to: localhost
+      become: no
+      when: not local_key_installed
+  when: "'rsync.net' in borg_host_addr"
