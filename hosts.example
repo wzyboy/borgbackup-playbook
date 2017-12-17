@@ -1,0 +1,7 @@
+[web]
+web1.example.org
+web2.example.org
+
+[db]
+db1.example.net
+db2.example.net

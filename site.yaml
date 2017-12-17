@@ -1,0 +1,15 @@
+- name: Install BorgBackup
+  hosts: all
+  remote_user: root
+  #remote_user: debian
+  #become: yes
+
+  vars:
+    - borg_passphrase: CHANGE_ME
+    - borg_host_user: username
+    - borg_host_addr: backup.example.org
+    # SSH host key of backup host. This can be obtained by "ssh-keyscan".
+    - borg_host_key: "backup.example.org ssh-ed25519 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+  roles:
+    - role: borg

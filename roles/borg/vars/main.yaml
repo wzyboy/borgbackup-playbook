@@ -7,7 +7,7 @@ borgmatic_version: "1.1.11"
 borgmatic_dir: /opt/borgmatic
 borgmatic_path: /opt/borgmatic/bin/borgmatic
 
-borg_passphrase: "YourRandomGeneratedPassphraseHere"
+#borg_passphrase: "YourRandomGeneratedPassphraseHere"
 borg_backup_dirs:
   - /home
   - /root
@@ -17,6 +17,6 @@ borg_backup_dirs:
   - /var/mail
 
 # rsync.net
-borg_host_user: 0000
-borg_host_addr: usw-s001.rsync.net
-borg_host_key: "usw-s001.rsync.net ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBHuAB/wxQZQSGjZCA8ri/e14eGvNXLvx4mD15DP9bWZ"
+#borg_host_user: 0000
+#borg_host_addr: usw-s001.rsync.net
+#borg_host_key: "usw-s001.rsync.net ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBHuAB/wxQZQSGjZCA8ri/e14eGvNXLvx4mD15DP9bWZ"

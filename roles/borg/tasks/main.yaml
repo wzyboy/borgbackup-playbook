@@ -1,3 +1,6 @@
+- debug:
+    var: borg_passphrase
+
 - name: Download Borg binary
   get_url:
     url: "{{ borg_url }}"
