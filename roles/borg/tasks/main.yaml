@@ -26,13 +26,6 @@
     path: /etc/borgmatic
     state: directory
 
-- name: Ensure optional backup directories exist
-  file:
-    path: "{{ item }}"
-    state: directory
-  with_items:
-    - /var/www
-
 - name: Create Borgmatic excludes file
   command: touch /etc/borgmatic/excludes
   args:
