@@ -12,7 +12,6 @@ borg_backup_dirs:
   - /home
   - /root
   - /etc
-  - /var/www
   - /var/log
   - /var/mail
 
