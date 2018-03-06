@@ -11,7 +11,11 @@ location:
 
     one_file_system: true
 
+{% if 'rsync.net' in borg_host_addr %}
     remote_path: borg1
+{% else %}
+    remote_path: borg
+{% endif %}
 
     repositories:
         - {{ borg_host_user}}@{{ borg_host_addr }}:{{ ansible_nodename }}.borg
