@@ -5,6 +5,9 @@ location:
 {% for dir in borg_backup_dirs %}
         - {{ dir }}
 {% endfor %}
+{% for dir in borg_add_dirs %}
+        - {{ dir }}
+{% endfor %}
 
     one_file_system: true
 

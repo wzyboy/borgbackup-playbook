@@ -1,1 +1,2 @@
 borg_setup_pubkey: False
+borg_add_dirs: []
