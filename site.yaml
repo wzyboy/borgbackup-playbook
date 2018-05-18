@@ -4,6 +4,10 @@
   #remote_user: debian
   #become: yes
 
+  # NOTE: due to race conditions, it is better not to run this playbook in parallel.
+  # See roles/borg/tasks/pubkey.yaml
+  serial: 1
+
   vars:
     - borg_passphrase: CHANGE_ME
     - borg_host_user: username
