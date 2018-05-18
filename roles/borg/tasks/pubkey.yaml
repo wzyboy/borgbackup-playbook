@@ -19,6 +19,9 @@
     var: local_key
 
 - block:
+      # FIXME: This task, if run in parallel, leads to race conditions, as the same
+      # authorized_key file is written by multiple parties simultaneously.
+      # https://github.com/ansible/ansible/issues/12170
     - name: Install local key
       authorized_key:
       user: "{{ borg_host_user }}"
@@ -54,6 +57,9 @@
         local_key_installed: False
       when: local_key.stdout not in installed_keys.stdout_lines
 
+      # FIXME: This task, if run in parallel, leads to race conditions, as the same
+      # authorized_key file is written by multiple parties simultaneously.
+      # https://github.com/ansible/ansible/issues/12170
     - name: Install local key
       shell: echo {{ local_key.stdout }} | ssh {{ borg_host_user}}@{{ borg_host_addr }} 'dd of=.ssh/authorized_keys oflag=append conv=notrunc'
       delegate_to: localhost
