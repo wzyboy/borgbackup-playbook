@@ -1,6 +1,6 @@
-borg_version: "1.1.5"
+borg_version: "1.1.10"
 borg_url: "https://github.com/borgbackup/borg/releases/download/{{ borg_version }}/borg-linux64"
-borg_checksum: "sha256:59968407a634cf0c75817b7c8607d6ef8fedd37e354bb3ebbc2fffa989333d02"
+borg_checksum: "sha256:6338d67aad4b5cd327b25ea363e30f0ed4abc425ce2d6a597c75a67a876ef9af"
 borg_path: /usr/local/bin/borg
 
 borgmatic_version: "1.1.11"
